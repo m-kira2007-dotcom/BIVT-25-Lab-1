@@ -1,154 +1,160 @@
-namespace Lab1
+namespace Lab1_test
 {
-    public class Blue
+    [TestClass]
+    public sealed class BlueTest
     {
-        public bool Task1(int a, int b)
+        Lab1.Blue main = new Lab1.Blue();
+
+        [TestMethod]
+        public void Test1()
         {
-            bool answer = false;
-
-            // code here
-            if ((a > 0 && b > 0) || (a < 0 && b < 0))
+            // Arrange
+            var input = new int[] { 0, 5, 2, -3, -2, 11, 22, -31, -418 };
+            var answer = new bool[] { false, true, false, true, false, true, false, true, false };
+            var test = new bool[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = true;
-
+                test[i] = main.Task1(input[i], input[(i + 1) % input.Length]);
             }
-            // end
-
-            return answer;
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
+            {
+                Assert.AreEqual(answer[i], test[i]);
+            }
         }
-        public bool Task2(double d)
+        [TestMethod]
+        public void Test2()
         {
-            bool answer = false;
-
-            // code here
-            if (Math.Abs(d) - Math.Floor(Math.Abs(d)) > 0)
+            // Arrange
+            var input = new double[] { 0, 1.5, 1, 3, -1, -2.3, 0.78, -0.3 };
+            var answer = new bool[] { false, true, false, false, false, true, true, true };
+            var test = new bool[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = true;
+                test[i] = main.Task2(input[i]);
             }
-            // end
-
-            return answer;
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
+            {
+                Assert.AreEqual(answer[i], test[i]);
+            }
         }
-        public bool Task3(int a, int b)
+        [TestMethod]
+        public void Test3()
         {
-            bool answer = false;
-
-            // code here
-            if (b != 0 && a % b == 0)
+            // Arrange
+            var input = new int[] { 0, 5, 2, -1, -3, -2, 11, 22, 11, -418 };
+            var answer = new bool[] { true, false, true, false, false, false, false, true, false, false };
+            var test = new bool[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = true;
+                test[i] = main.Task3(input[i], input[(i + 1) % input.Length]);
             }
-            // end
-
-            return answer;
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
+            {
+                Assert.AreEqual(answer[i], test[i]);
+            }
         }
-        public double Task4(double d, double f, double g)
+        [TestMethod]
+        public void Test4()
         {
-            double answer = 0;
-
-            // code here
-            if (Math.Abs(d) > Math.Abs(g) && Math.Abs(d) > Math.Abs(f))
+            // Arrange
+            var input = new double[] { 0, 1.5, 1, 3, -1, -2.3, 0.78, -0.3 };
+            var answer = new double[] { 1.5, 3, 3, 3, -2.3, -2.3, 0.78, 1.5 };
+            var test = new double[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = d;
+                test[i] = main.Task4(input[i], input[(i + 1) % input.Length], input[(i + 2) % input.Length]);
             }
-            else if (Math.Abs(g) > Math.Abs(d) && Math.Abs(g) > Math.Abs(f))
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = g;
+                Assert.AreEqual(answer[i], test[i]);
             }
-            else if (Math.Abs(f) > Math.Abs(g) && Math.Abs(f) > Math.Abs(d))
-
-            {
-                answer = f;
-            }
-            // end
-
-            return answer;
         }
-        public double Task5(double x)
+        [TestMethod]
+        public void Test5()
         {
-            double answer = 0;
-
-            // code here
-            if (x <= -1)
+            // Arrange
+            var input = new double[] { 0, -0.55, 1, 3, -1, -2.3, 0.78, -0.3 };
+            var answer = new double[] { 1, 0.45, 1, 1, 0, 0, 1, 0.7 };
+            var test = new double[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = 0;
+                test[i] = main.Task5(input[i]);
             }
-            else if (x <= 0 && x > -1)
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = x + 1;
+                Assert.AreEqual(answer[i], test[i], 0.0001);
             }
-            else
-            {
-                answer = 1;
-            }
-            // end
-
-            return answer;
         }
-        public bool Task6(double circleS, double squareS)
+        [TestMethod]
+        public void Test6()
         {
-            bool answer = false;
-
-            // code here
-            double kr = Math.Sqrt(circleS / Math.PI) * 2;
-            double kv = Math.Sqrt(squareS);
-            if (kr <= kv)
+            // Arrange
+            var input = new double[,] {
+                { 0, 1.5,   1, 3.9, 5, 1.3, 0.1, 12, 12, 12.34 },
+                { 0, 2.3, 3.9,   1, 5, 0.1, 1.3, 14, 18, 34.12 }
+            };
+            var answer = new bool[] { true, true, true, false, false, false, true, false, true };
+            var test = new bool[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = true;
+                test[i] = main.Task6(input[0, i], input[1, i]);
             }
-            // end
-
-            return answer;
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
+            {
+                Assert.AreEqual(answer[i], test[i]);
+            }
         }
-
-        public double Task7(double d, double f)
+        [TestMethod]
+        public void Test7()
         {
-            int answer = 0;
-
-            // code here
-            if (Math.Abs(d) < Math.Abs(f))
+            // Arrange
+            var input = new double[] { 0, 1.5, 1, 3, -1, -2.3, 0.78, -0.3 };
+            var answer = new double[] { 0, 1, -1, 0, 0, 1, 0, 0 };
+            var test = new double[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                if (d > 0)
-                {
-                    answer = -1;
-                }
+                test[i] = main.Task7(input[i], input[(i + 1) % input.Length]);
             }
-            else if (f > 0)
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = 1;
+                Assert.AreEqual(answer[i], test[i]);
             }
-            
-            // end
-
-            return answer;
         }
-        public bool Task8(int a, int b, int c)
+        [TestMethod]
+        public void Test8()
         {
-            bool answer = false;
-
-            // code here
-            int A = a / 2;
-            int B = b / 2;
-            int C = c / 2;
-            
-            
-            if ((A+B+C)%3 == 0)
+            // Arrange
+            var input = new int[,] {
+                { 0, 1, 8, 1, 3, 3, 30, 30, 33, 33 },
+                { 0, 6, 4, 5, 5, 3, 30, 50, 34, 35 },
+                { 0, 1, 2, 1, 2, 3, 40, 40, 33, 33 }
+            };
+            var answer = new bool[] { false, true, false, true, false, true, true, true, false, false };
+            var test = new bool[answer.Length];
+            // Act
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = true;
-
+                test[i] = main.Task8(input[0, i], (int)input[1, i], (int)input[2, i]);
             }
-            else if ((A+B+C+1)%3==0)
+            // Assert
+            for (int i = 0; i < answer.Length; i++)
             {
-                answer = true;
+                Assert.AreEqual(answer[i], test[i]);
             }
-            if (A+B+C+1 < 3)
-            {
-                answer = false;
-            }
-
-                // end
-
-                return answer;
         }
     }
 }
